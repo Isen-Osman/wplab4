@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="mk" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation of Events</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(white,whitesmoke);
+            color: #333333;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            padding-top: 20px;
+        }
+
+        h1 {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: #2c3e50;
+        }
+
+        a {
+            color: #2c3e50;
+            font-weight: bold;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        a:hover {
+            color: #e67e22;
+        }
+
+        .btn {
+            border: none;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+
+
+        .btn-warning {
+            background: #f39c12;
+        }
+
+
+
+        .btn-dark {
+            background: #2c3e50;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .table {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+       }
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center mb-4">Reservation of Events</h1>
+
+    <div class="d-flex justify-content-end mb-3">
+        <a href="/login" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a href="/logout" class="btn btn-secondary"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <!-- Search Form -->
+    <div class="form-container mb-5">
+        <form th:method="POST" th:action="@{/events/searchEvent}">
+            <h4>Search Event</h4>
+            <div class="form-row">
+                <div class="col-md-8">
+                    <input type="text" name="locationId" id="locationId" class="form-control"
+                           placeholder="Event Location" required>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary btn-block">Search</button>
+                </div>
+            </div>
+            <ul class="mt-4">
+                <li th:each="event : ${session.events}">
+                    <span th:text="${'Name: ' + event.name + ' Description: ' + event.description + ' Popularity: ' + event.popularityScore}"></span>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+    <!-- Events Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+            <tr>
+                <th>Select</th>
+                <th>Event Name</th>
+                <th>Popularity</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="event : ${events}">
+                <td>
+                    <input type="radio" name="eventName" th:value="${event.name}" form="bookingForm" required>
+                </td>
+                <td th:text="${event.name}"></td>
+                <td th:text="${event.popularityScore}"></td>
+                <td th:text="${event.description}"></td>
+                <td th:text="${event.location.name}"></td>
+                <td th:text="${event.category.name}"></td>
+                <td>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <form th:method="POST" th:action="@{'/events/delete/' + ${event.id}}">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </th:block>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="btn btn-info btn-sm" th:href="@{/events/edit-event/{id}(id=${event.id})}">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                    </th:block>
+                    <a class="btn btn-warning btn-sm" th:href="@{/events/details/{id}(id=${event.getId()})}">
+                        <i class="fas fa-info-circle"></i> Details
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Booking Form -->
+    <div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" class="form-container mt-4">
+        <h4>Reserve your tickets:</h4>
+        <form id="bookingForm" th:method="POST" th:action="@{/eventBooking}">
+            <div class="form-group">
+                <label for="numTickets">Number of tickets:</label>
+                <input type="number" name="numTickets" id="numTickets" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Confirm Reservation</button>
+        </form>
+    </div>
+
+    <!-- Add Event Button -->
+    <div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" class="row mt-4">
+        <div class="col-12">
+            <a href="/events/event/add" class="btn btn-dark btn-block">Add New Event</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/+/D/5/SVgf4T2l6e5zZ5T6Dz65nPf5F8go5vc//wW6z3lEXF0nmr1hkp/91gD"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-kJ6tP2rBzjD9j1nR2r8y5gGVX3AL8mpg+/pftGiTq04qPUSN1o6XgojszXl7gQ/5"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-hjV7s1D9QJgaO7g0jNfgTq2V//uA3jCH5ZzV4wX7g4xYReXhGsyvDPLQdPzndLgA"
+        crossorigin="anonymous"></script>
+</body>
+</html>

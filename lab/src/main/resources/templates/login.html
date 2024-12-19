@@ -1,0 +1,74 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(gray,darkblue);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            color: white;
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .form-container .form-control {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+        }
+        .form-container .form-control:focus {
+            box-shadow: none;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        .form-container .btn-primary {
+            background: #2575fc;
+            border: none;
+        }
+        .form-container .btn-primary:hover {
+            background: #6a11cb;
+        }
+        .form-container .text-danger {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="form-container col-md-4 mx-auto">
+        <form class="form-signin mt-3" method="post" action="/login">
+            <h2 class="form-signin-heading"><i class="fas fa-user-lock"></i> Sign In</h2>
+            <p>
+                <label for="username" class="sr-only">Username</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+            </p>
+            <p>
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+            </p>
+
+            <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
+
+            <button id="submit" class="btn btn-lg btn-primary btn-block mt-3" type="submit"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+            <a href="/events" class="btn btn-lg btn-secondary btn-block mt-2"><i class="fas fa-user"></i> Continue as Guest</a>
+            <a href="/register" class="btn btn-block btn-light">Don't have an account? Register here!</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>

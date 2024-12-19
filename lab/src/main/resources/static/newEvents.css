@@ -1,0 +1,75 @@
+body {
+    background: linear-gradient(white,whitesmoke);
+    color: #333333;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    padding-top: 20px;
+}
+
+h1 {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: #2c3e50;
+}
+
+a {
+    color: #2c3e50;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+a:hover {
+    color: #e67e22;
+}
+
+.btn {
+    border: none;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn-danger {
+    background: #e74c3c;
+}
+
+.btn-warning {
+    background: #f39c12;
+}
+
+.btn-info {
+    background: #3498db;
+}
+
+.btn-dark {
+    background: #2c3e50;
+}
+
+.form-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.table {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table thead th {
+    background: #f39c12;
+}
+
+.table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.3);
+}

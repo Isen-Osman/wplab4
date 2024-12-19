@@ -1,0 +1,107 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-signin-heading {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .form-control {
+            border-radius: 20px;
+        }
+
+        .btn-primary {
+            border-radius: 20px;
+            background: #007bff;
+        }
+
+        .btn-light {
+            border-radius: 20px;
+            color: #007bff;
+        }
+
+        .role-label {
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <form class="form-signin" method="post" action="/register">
+        <h2 class="form-signin-heading">Create Your Account</h2>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username"
+                   required="">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password"
+                   required="">
+        </div>
+        <div class="form-group">
+            <label for="repeatPassword">Repeat Password</label>
+            <input type="password" id="repeatPassword" name="repeatPassword" class="form-control"
+                   placeholder="Confirm your password" required="">
+        </div>
+        <div class="form-group">
+            <label for="name">First Name</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Enter your first name"
+                   required="">
+        </div>
+        <div class="form-group">
+            <label for="surname">Last Name</label>
+            <input type="text" id="surname" name="surname" class="form-control" placeholder="Enter your last name"
+                   required="">
+        </div>
+        <div class="form-group">
+            <label>Role</label><br>
+            <input type="radio" name="role" id="ROLE_ADMIN" value="ROLE_ADMIN">
+            <label for="ROLE_ADMIN" class="role-label">Admin</label>
+
+            <input type="radio" name="role" id="ROLE_USER" value="ROLE_USER" checked>
+            <label for="ROLE_USER" class="role-label">User</label>
+        </div>
+
+        <th:block th:if="${hasError}">
+            <div th:text="${error}" class="text-danger text-center"></div>
+        </th:block>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+        <a href="/login" class="btn btn-block btn-light">Already have an account? Login here!</a>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

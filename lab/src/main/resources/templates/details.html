@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="text-center  mb-4 bg-primary  bg-warning text-white rounded-pill px-7 py-2">Event Details</h1>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <tbody>
+      <tr>
+        <td class="font-weight-bold">Attendee Name</td>
+        <td th:text="${event.name}"></td>
+      </tr>
+      <tr>
+        <td class="font-weight-bold">Description</td>
+        <td th:text="${event.description}"></td>
+      </tr>
+      <tr>
+        <td class="font-weight-bold">Popularity</td>
+        <td th:text="${event.popularityScore}"></td>
+      </tr>
+      <tr>
+        <td class="font-weight-bold">Location Name</td>
+        <td th:text="${event.location.name}"></td>
+      </tr>
+      <tr>
+        <td class="font-weight-bold">Location Description</td>
+        <td th:text="${event.location.description}"></td>
+      </tr>
+      <tr>
+        <td class="font-weight-bold">Location Address</td>
+        <td th:text="${event.location.getAddress()}"></td>
+      </tr>
+      <tr>
+        <td class="font-weight-bold">Location Capacity</td>
+        <td th:text="${event.location.getCapacity()}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
